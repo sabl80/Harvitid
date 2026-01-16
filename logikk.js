@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", () => {
   let gullapper = 0;
   const maksGullapper = 20;
   let hjerter = 0;
-  const maksHjerter = 10;
+  const maksHjerter = 7;
   let bossLapper = 0;
   const maksBoss = 10;
   let runde = 0;
@@ -245,3 +245,4 @@ document.addEventListener("DOMContentLoaded", () => {
   neiKnapp.addEventListener("click", () => svar("nei"));
   startPaNyttKnapp.addEventListener("click", startSpill);
 });
+
