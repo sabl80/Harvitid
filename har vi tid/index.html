@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Har vi tid?</title>
+  <link rel="stylesheet" href="stil.css">
+</head>
+<body>
+
+  <div id="start-skjerm" class="full-skjerm">
+    <div class="innhold">
+      <h1>💼 Har vi tid?</h1>
+      <p>Et spill om hverdagskaos på jobben.</p>
+      <p><small>Si JA til oppgaver for å få poeng.<br>Si NEI for å spare tid, men da mister du liv!</small></p>
+      <button id="start-knapp">Start jobb</button>
+    </div>
+  </div>
+
+  <div id="spill-container">
+    <header>
+      <h1>💼 Har vi tid?</h1>
+      <div id="liv-container">
+        <span id="liv"></span>
+      </div>
+    </header>
+
+    <div id="scene">
+      <div id="havard" class="avatar sjef">
+        <div class="navn">Håvard</div>
+        <div id="gullapper"></div>
+      </div>
+      <div id="personer"></div>
+    </div>
+
+    <div id="sporsmal-container">
+      <p id="sporsmal">Gjør deg klar...</p>
+      <div class="knapper">
+        <button id="ja">Ja, så klart!</button>
+        <button id="nei">Nei, har ikke tid</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="slutt-skjerm" class="full-skjerm skjult">
+    <div class="innhold">
+      <img id="slutt-gif" src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExcHJyeXcwZ3Bubjh2b214M3Y0ZHV4aHZ4aHZ4aHZ4aHZ4aHZ4aHZ4aHZ4/xT0xehfxlptZgJ2rfi/giphy.gif" alt="Stresset kontorarbeider">
+      <h2 id="slutt-tekst"></h2>
+      <button id="start-pa-nytt">Start på nytt</button>
+    </div>
+  </div>
+
+  <audio id="lyd-ja" src="https://actions.google.com/sounds/v1/cartoon/clang_and_wobble.ogg" preload="auto"></audio>
+  <audio id="lyd-nei" src="https://actions.google.com/sounds/v1/cartoon/wood_plank_flicks.ogg" preload="auto"></audio>
+  <audio id="lyd-ny" src="https://actions.google.com/sounds/v1/cartoon/slide_whistle_to_drum.ogg" preload="auto"></audio>
+  <audio id="lyd-gameover" src="https://actions.google.com/sounds/v1/cartoon/clang_and_crash.ogg" preload="auto"></audio>
+
+  <script src="logikk.js"></script>
+</body>
+</html>

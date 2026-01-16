@@ -1,0 +1,211 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    text-align: center;
+    background-color: #f0f3f5;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+  }
+  
+  /* === Layout === */
+  #spill-container {
+    margin: 20px auto;
+    width: 90%;
+    max-width: 600px;
+    background: white;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  }
+  
+  h1 { font-size: 24px; color: #333; margin-bottom: 10px; }
+  
+  /* === Liv / Hjerter === */
+  #liv-container {
+    margin: 10px 0;
+    font-size: 24px;
+    letter-spacing: 5px;
+  }
+  
+  /* === Scenen (Kontoret) === */
+  #scene {
+    position: relative;
+    height: 350px;
+    border-bottom: 4px solid #ddd;
+    background: radial-gradient(circle at center, #fff 0%, #f4f4f4 100%);
+    overflow: hidden;
+    border-radius: 10px;
+    margin-bottom: 20px;
+  }
+  
+  /* === Avatarer === */
+  .avatar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    color: white;
+    font-weight: bold;
+    position: absolute;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+    transition: all 0.3s ease;
+    z-index: 10;
+  }
+  
+  /* Håvard (Spilleren) */
+  .sjef {
+    background-color: #03477F;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 3px solid #fff;
+    z-index: 5;
+  }
+  
+  /* Innkommende personer */
+  .gjest {
+    top: 60px; /* Startposisjon */
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  
+  .navn {
+    position: absolute;
+    bottom: -25px;
+    width: 150px;
+    text-align: center;
+    color: #333;
+    font-size: 14px;
+    font-weight: normal;
+  }
+  
+  /* === Gullapper (Score) === */
+  #gullapper {
+    position: absolute;
+    bottom: 60px; /* Over hodet på Håvard */
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column-reverse; /* Nyeste nederst i stabelen */
+    align-items: center;
+    width: 200px;
+  }
+  
+  .gullapp {
+    background-color: #FFD700;
+    color: #5c4d00;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 11px;
+    margin-bottom: 2px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+    animation: hoppOpp 0.3s ease-out;
+    white-space: nowrap;
+  }
+  
+  @keyframes hoppOpp {
+    from { transform: translateY(10px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+  
+  /* === Animasjoner === */
+  .kom-inn {
+    animation: fallNed 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+  
+  @keyframes fallNed {
+    from { top: -100px; opacity: 0; }
+    to { top: 60px; opacity: 1; }
+  }
+  
+  .misfornoyd {
+    filter: grayscale(100%);
+    opacity: 0.6;
+    animation: riste 0.5s ease-in-out;
+  }
+  
+  @keyframes riste {
+    0% { transform: translateX(-50%) rotate(0deg); }
+    25% { transform: translateX(-55%) rotate(-10deg); }
+    50% { transform: translateX(-45%) rotate(10deg); }
+    75% { transform: translateX(-55%) rotate(-10deg); }
+    100% { transform: translateX(-50%) rotate(0deg); }
+  }
+  
+  /* === Spørsmål og Knapper === */
+  #sporsmal-container {
+    min-height: 120px;
+  }
+  
+  #sporsmal {
+    font-size: 18px;
+    font-weight: bold;
+    color: #444;
+    margin-bottom: 15px;
+    min-height: 24px;
+  }
+  
+  .knapper {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+  }
+  
+  button {
+    padding: 12px 24px;
+    border: none;
+    cursor: pointer;
+    border-radius: 50px;
+    font-size: 16px;
+    font-weight: bold;
+    transition: transform 0.1s, background-color 0.2s;
+  }
+  
+  button:active { transform: scale(0.95); }
+  
+  #ja { background-color: #28a745; color: white; }
+  #ja:hover { background-color: #218838; }
+  
+  #nei { background-color: #dc3545; color: white; }
+  #nei:hover { background-color: #c82333; }
+  
+  #start-knapp, #start-pa-nytt {
+    background-color: #03477F;
+    color: white;
+    margin-top: 20px;
+  }
+  
+  /* === Start- og Sluttskjerm === */
+  .full-skjerm {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(255, 255, 255, 0.95);
+    display: flex; /* Flex her for sentrering */
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+    transition: opacity 0.3s;
+  }
+  
+  .innhold {
+    text-align: center;
+    padding: 30px;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+    border: 1px solid #eee;
+  }
+  
+  .innhold img {
+    max-width: 250px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+  }
+  
+  /* Klassen for å skjule skjermer */
+  .skjult {
+    display: none !important;
+  }
