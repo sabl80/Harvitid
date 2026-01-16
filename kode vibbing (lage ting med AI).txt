@@ -1,0 +1,12 @@
+kode vibbing (lage ting med AI) 
+Lage kode med hjelp av Gemini / Claude / ChatGPT
+Organisere kode i f.eks. Visual Studio / Cursor
+
+1. Lag mappe på PC, lage ny fil med Visual Studio / Cursor. 
+Åpne sidebar og lag filer: 
+- index.html
+- logikk.js
+- stil.css
+
+Github.com: hvis man vil publisere koden eksternt og se hvordan det ser ut. Har versjonskontroll slik at man kan rulle tilbake. 
+FTP til training.caa.no: 
