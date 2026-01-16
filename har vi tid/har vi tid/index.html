@@ -3,23 +3,66 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Har vi tid?</title>
+  <title>KaoS: Håvards valg</title>
   <link rel="stylesheet" href="stil.css" />
 </head>
 <body>
-  <main id="spill">
-    <h1>💼 Har vi tid?</h1>
+  <div id="spill-container">
+    <!-- Introduksjon -->
+    <section id="intro">
+      <h1>KaoS: Håvards valg</h1>
+      <p>
+        Du er Håvard, leder for avdeling KaoS. Du får mange forespørsler hver dag. 
+        Hver gang du sier <strong>ja</strong> til en oppgave, legges en gullapp til på tavla og stressnivået øker. 
+        Når tavla er full (20 lapper), er det game over!<br><br>
+        Sier du ofte nok ja til en medarbeider kan du bli kåret til <strong>Verdens beste sjef</strong>. 
+        Sier du nei til en medarbeider (eller verre – til Lars!) mister du en stemme mot å bli verdens beste sjef.
+      </p>
+      <button id="start-knapp">Start spill</button>
+    </section>
 
-    <section id="scene">
-      <div id="havard" class="avatar sjef">
-        <img src="grafikk/haavard.png" alt="Håvard" />
-        <div class="navn">Håvard</div>
+    <!-- Spillskjerm -->
+    <section id="spill" class="skjult">
+      <div id="spill-innhold">
+        <!-- Venstre side -->
+        <div id="venstre-ramme">
+          <p id="beskrivelse" class="beskrivelse"></p>
+          <p id="sporsmal"></p>
+          <div class="valg-container">
+            <button class="valg" id="ja-knapp">Ja, klart!</button>
+            <button class="valg" id="nei-knapp">Nei, glem det!</button>
+          </div>
+        </div>
+
+        <!-- Høyre side -->
+        <div id="hoyre-ramme">
+          <h3>Håvards oppgavetavle</h3>
+          <div id="tavle"></div>
+          <p id="gullapp-teller">Gullapper: 0 / 20</p>
+
+          <div id="stressbar-container">
+            <div id="stressbar-fyll"></div>
+          </div>
+          <p id="stressnivaa">Stressnivå: 0%</p>
+
+          <h4>Verdens beste sjef 💖</h4>
+          <div id="hjerte-tavle"></div>
+
+          <h4>Søppelbøtte 🗑️</h4>
+          <div id="boss-tavle"></div>
+        </div>
       </div>
     </section>
 
-    <button id="start-knapp">Start spill</button>
-  </main>
+    <!-- Sluttskjerm -->
+    <section id="slutt" class="skjult">
+      <h2>Spillet er over!</h2>
+      <p id="sluttmelding"></p>
+      <button id="start-pa-nytt">Spill igjen</button>
+    </section>
+  </div>
 
+  <!-- Koble til JavaScript -->
   <script src="logikk.js"></script>
 </body>
 </html>
