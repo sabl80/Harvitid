@@ -1,0 +1,49 @@
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  background-color: #f4f7fa;
+  margin: 0;
+  padding: 2rem;
+}
+
+#scene {
+  margin: 2rem auto;
+  width: 200px;
+  height: 200px;
+  position: relative;
+}
+
+.avatar {
+  position: relative;
+  display: inline-block;
+  text-align: center;
+}
+
+.avatar img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: 4px solid #03477F;
+  object-fit: cover;
+}
+
+.avatar .navn {
+  margin-top: 0.5rem;
+  font-weight: bold;
+  color: #03477F;
+  font-size: 1.2rem;
+}
+
+button {
+  padding: 10px 20px;
+  font-size: 1rem;
+  cursor: pointer;
+  border: none;
+  background-color: #03477F;
+  color: white;
+  border-radius: 5px;
+}
+
+button:hover {
+  background-color: #0560ad;
+}
