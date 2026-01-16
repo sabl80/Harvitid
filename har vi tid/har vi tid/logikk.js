@@ -17,6 +17,18 @@ document.addEventListener("DOMContentLoaded", () => {
   const stressbar = document.getElementById("stressbar-fyll");
   const stressnivaa = document.getElementById("stressnivaa");
 
+  // 🆕 Søppelteller legges til først etter at bossTavle finnes
+  let soppelTeller;
+  function lagSoppelTeller() {
+    if (!soppelTeller) {
+      soppelTeller = document.createElement("p");
+      soppelTeller.id = "soppel-teller";
+      soppelTeller.textContent = "Søppel: 0 / 10";
+      bossTavle.insertAdjacentElement("beforebegin", soppelTeller);
+    }
+  }
+
+  // Tellerverdier
   let gullapper = 0;
   const maksGullapper = 20;
   let hjerter = 0;
@@ -62,6 +74,30 @@ document.addEventListener("DOMContentLoaded", () => {
     Lars: "Lars stikker hodet inn på kontoret og spør:"
   };
 
+  // Oppstarts-funksjon
+  function startSpill() {
+    gullapper = 0;
+    hjerter = 0;
+    bossLapper = 0;
+    soppelFullt = false;
+    runde = 0;
+
+    tavle.innerHTML = "";
+    hjerteTavle.innerHTML = "";
+    bossTavle.innerHTML = "";
+
+    lagSoppelTeller();
+    oppdaterSoppelTeller();
+
+    intro.classList.add("skjult");
+    slutt.classList.add("skjult");
+    spill.classList.remove("skjult");
+
+    oppdaterTavle();
+    oppdaterStressbar();
+    visSporsmal();
+  }
+
   function tilfeldigKategori() {
     const navn = Object.keys(kategorier);
     return navn[Math.floor(Math.random() * navn.length)];
@@ -75,35 +111,18 @@ document.addEventListener("DOMContentLoaded", () => {
   let aktivKategori = "";
   let aktivSporsmal = "";
 
-  function startSpill() {
-    gullapper = 0;
-    hjerter = 0;
-    bossLapper = 0;
-    soppelFullt = false;
-    runde = 0;
-    tavle.innerHTML = "";
-    hjerteTavle.innerHTML = "";
-    bossTavle.innerHTML = "";
-    intro.classList.add("skjult");
-    slutt.classList.add("skjult");
-    spill.classList.remove("skjult");
-    oppdaterTavle();
-    oppdaterStressbar();
-    visSporsmal();
-  }
-
   function visSporsmal() {
     if (runde >= maksRunder) {
       avsluttSpill(false);
       return;
     }
-
     aktivKategori = tilfeldigKategori();
     aktivSporsmal = tilfeldigSporsmal(aktivKategori);
     beskrivelseTekst.textContent = beskrivelser[aktivKategori];
     sporsmalTekst.textContent = `"${aktivSporsmal}"`;
   }
 
+  // Oppdateringer
   function oppdaterTavle() {
     tavle.innerHTML = "";
     for (let i = 0; i < gullapper; i++) {
@@ -118,12 +137,17 @@ document.addEventListener("DOMContentLoaded", () => {
     const prosent = Math.min((gullapper / maksGullapper) * 100, 100);
     stressbar.style.width = `${prosent}%`;
     stressnivaa.textContent = `Stressnivå: ${Math.round(prosent)}%`;
-
     if (prosent < 50) stressbar.style.backgroundColor = "#28a745";
     else if (prosent < 80) stressbar.style.backgroundColor = "#ffc107";
     else stressbar.style.backgroundColor = "#dc3545";
   }
 
+  function oppdaterSoppelTeller() {
+    if (soppelTeller)
+      soppelTeller.textContent = `Søppel: ${bossLapper} / ${maksBoss}`;
+  }
+
+  // Hjerte-funksjoner
   function leggTilHjerte() {
     const emoji = document.createElement("span");
     emoji.textContent = "❤️";
@@ -131,10 +155,7 @@ document.addEventListener("DOMContentLoaded", () => {
     emoji.style.margin = "2px";
     hjerteTavle.appendChild(emoji);
     hjerter++;
-
-    if (hjerter >= maksHjerter) {
-      avsluttSpill("vinner");
-    }
+    if (hjerter >= maksHjerter) avsluttSpill("vinner");
   }
 
   function fjernHjerte() {
@@ -155,32 +176,33 @@ document.addEventListener("DOMContentLoaded", () => {
 
   function visSoppelFulltMelding() {
     const melding = document.createElement("div");
-    melding.textContent = "Ups, søppelet er fullt! Du kan ikke si nei til flere oppgaver.";
+    melding.textContent =
+      "Ups, søppelet er fullt! Du kan ikke si nei til flere oppgaver.";
     melding.classList.add("hjerte-mistet");
     melding.style.background = "rgba(255,255,255,0.95)";
     melding.style.border = "2px solid #ff8800";
     melding.style.color = "#ff6600";
     document.body.appendChild(melding);
-    setTimeout(() => melding.remove(), 1800);
+    setTimeout(() => melding.remove(), 2000);
   }
 
+  // Søppel-funksjoner
   function leggISoppel() {
     if (bossLapper < maksBoss) {
       const bossLapp = document.createElement("div");
       bossLapp.classList.add("boss-lapp");
       bossTavle.appendChild(bossLapp);
       bossLapper++;
-      if (bossLapper >= maksBoss) {
-        soppelFullt = true;
-      }
+      oppdaterSoppelTeller();
+      if (bossLapper >= maksBoss) soppelFullt = true;
     } else {
       soppelFullt = true;
       visSoppelFulltMelding();
     }
   }
 
+  // Spillerens valg
   function svar(valg) {
-    // Hvis søppelet er fullt og man prøver å si nei – ikke gå videre
     if (valg === "nei" && soppelFullt) {
       visSoppelFulltMelding();
       return;
@@ -190,14 +212,36 @@ document.addEventListener("DOMContentLoaded", () => {
       gullapper++;
       oppdaterTavle();
       oppdaterStressbar();
-
-      if (aktivKategori === "Medarbeider") {
-        leggTilHjerte();
-      }
-
+      if (aktivKategori === "Medarbeider") leggTilHjerte();
       if (gullapper >= maksGullapper) {
         avsluttSpill(true);
         return;
       }
+    } else if (valg === "nei") {
+      leggISoppel();
+      if (aktivKategori === "Medarbeider" || aktivKategori === "Lars") fjernHjerte();
+    }
 
-      // Hvis man sa ja etter at søppelet var fullt – da kan man igjen fortsette
+    setTimeout(() => {
+      runde++;
+      visSporsmal();
+    }, 800);
+  }
+
+  function avsluttSpill(tilstand) {
+    spill.classList.add("skjult");
+    slutt.classList.remove("skjult");
+    if (tilstand === true)
+      sluttMelding.textContent = `KaoS har tatt over! Tavla er full av gullapper (${gullapper}). Håvard kollapser under arbeidsmengden 💥`;
+    else if (tilstand === "vinner")
+      sluttMelding.textContent = `Du er kåret til Verdens beste sjef! ❤️🎉 (${hjerter} hjerter)`;
+    else
+      sluttMelding.textContent = `Du klarte deg! Tavla har ${gullapper} gullapper – kontrollert KaoS for denne gang 😅`;
+  }
+
+  // Hendelser
+  startKnapp.addEventListener("click", startSpill);
+  jaKnapp.addEventListener("click", () => svar("ja"));
+  neiKnapp.addEventListener("click", () => svar("nei"));
+  startPaNyttKnapp.addEventListener("click", startSpill);
+});
